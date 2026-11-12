@@ -1,0 +1,386 @@
+# ============================================================
+# .gitignore para un proyecto de SOC (Security Operations Center)
+# Stack cubierto: Python, Node, Docker, Terraform, Ansible,
+# SIEM/EDR (Wazuh, ELK, Splunk, Graylog), Jupyter, IaC
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. SECRETOS Y CREDENCIALES (lo más importante)
+# ------------------------------------------------------------
+.env
+.env.*
+!.env.example
+!.env.template
+*.env
+secrets/
+secret/
+.secrets/
+credentials/
+credentials.json
+credentials.yml
+credentials.yaml
+secrets.json
+secrets.yml
+secrets.yaml
+*.secret
+*.secrets
+config.local.*
+*.local.yml
+*.local.yaml
+*.local.json
+*.local.toml
+
+# Llaves y certificados
+*.pem
+*.key
+*.crt
+*.cer
+*.der
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.csr
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+*.ppk
+*.gpg
+*.asc
+.htpasswd
+
+# Tokens y API keys
+*token*.txt
+*apikey*
+*api_key*
+*.token
+.netrc
+.npmrc
+.pypirc
+
+# Credenciales de nube
+.aws/
+.azure/
+.gcloud/
+gcp-key*.json
+service-account*.json
+.kube/
+kubeconfig
+*.kubeconfig
+
+# ------------------------------------------------------------
+# 2. LOGS, EVIDENCIA Y DATOS SENSIBLES DEL SOC
+#    (logs reales pueden contener IPs, usuarios, PII)
+# ------------------------------------------------------------
+*.log
+*.log.*
+logs/
+log/
+
+# Capturas de red y evidencia forense
+*.pcap
+*.pcapng
+*.cap
+*.etl
+*.evtx
+*.dmp
+*.mem
+*.raw
+*.vmem
+*.E01
+*.dd
+evidence/
+evidencia/
+forensics/
+forense/
+captures/
+dumps/
+
+# Datos reales de incidentes, alertas y tickets
+incidents/
+incidentes/
+cases/
+casos/
+alerts-export/
+exports/
+reports/private/
+reportes-privados/
+
+# Datasets y bases de datos locales
+data/raw/
+data/private/
+data/*.csv
+data/*.json
+data/*.parquet
+*.sqlite
+*.sqlite3
+*.db
+*.sql.gz
+*.bak
+*.dump
+
+# Reglas/IOCs con información sensible de clientes (ajusta a tu caso)
+iocs/private/
+threat-intel/private/
+
+# ------------------------------------------------------------
+# 3. INFRAESTRUCTURA COMO CÓDIGO
+# ------------------------------------------------------------
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+!example.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+# Se recomienda SÍ versionar: .terraform.lock.hcl
+
+# Ansible
+*.retry
+.vault_pass
+.vault_pass.txt
+vault_password*
+ansible.cfg.local
+host_vars/*secret*
+group_vars/*secret*
+inventory.local*
+
+# Vagrant / Packer
+.vagrant/
+packer_cache/
+*.box
+
+# Helm / Kubernetes
+charts/*.tgz
+*-secret.yaml
+*-secret.yml
+*.sealed.local.yaml
+
+# ------------------------------------------------------------
+# 4. DOCKER Y VOLÚMENES DE SERVICIOS SOC
+# ------------------------------------------------------------
+docker-compose.override.yml
+docker-compose.local.yml
+.docker/
+volumes/
+
+# Datos persistentes de Wazuh / Elastic / OpenSearch / Graylog / Splunk
+wazuh-data/
+wazuh_data/
+elasticsearch-data/
+elasticsearch_data/
+esdata/
+opensearch-data/
+opensearch_data/
+kibana-data/
+graylog-data/
+mongo-data/
+splunk-data/
+splunk_data/
+grafana-data/
+grafana_data/
+prometheus-data/
+prometheus_data/
+postgres-data/
+postgres_data/
+redis-data/
+redis_data/
+minio-data/
+misp-data/
+thehive-data/
+cortex-data/
+velociraptor-data/
+suricata/logs/
+zeek/logs/
+zeek-logs/
+
+# ------------------------------------------------------------
+# 5. PYTHON (detecciones, parsers, automatización/SOAR)
+# ------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+ENV/
+virtualenv/
+.python-version
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Pruebas y cobertura
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+.hypothesis/
+
+# Linters / type checkers
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.pyre/
+.dmypy.json
+
+# Gestores de dependencias
+.pdm.toml
+.pdm-python
+__pypackages__/
+.poetry/
+# Se recomienda SÍ versionar: poetry.lock / requirements.txt / uv.lock
+
+# Jupyter (análisis de amenazas, hunting)
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+# Si tus notebooks traen salidas con datos sensibles, limpia con nbstripout
+
+# ------------------------------------------------------------
+# 6. NODE / FRONTEND (dashboards, paneles)
+# ------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.next/
+.nuxt/
+.cache/
+.parcel-cache/
+.vite/
+out/
+*.tsbuildinfo
+
+# ------------------------------------------------------------
+# 7. OTROS LENGUAJES COMUNES EN HERRAMIENTAS DE SEGURIDAD
+# ------------------------------------------------------------
+# Go
+*.exe
+*.exe~
+*.test
+*.out
+vendor/
+bin/
+
+# Rust
+target/
+**/*.rs.bk
+
+# Java
+*.class
+*.jar
+*.war
+.gradle/
+.mvn/
+
+# ------------------------------------------------------------
+# 8. BINARIOS, MUESTRAS Y MALWARE
+#    (nunca subas muestras reales al repositorio)
+# ------------------------------------------------------------
+samples/
+malware/
+muestras/
+sandbox-output/
+*.dll
+*.bin
+*.iso
+*.img
+*.vmdk
+*.vdi
+*.ova
+*.ovf
+
+# ------------------------------------------------------------
+# 9. TEMPORALES, BACKUPS Y CACHÉ
+# ------------------------------------------------------------
+tmp/
+temp/
+.tmp/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+*.orig
+*.rej
+*.old
+.cache/
+
+# ------------------------------------------------------------
+# 10. EDITORES / IDEs
+# ------------------------------------------------------------
+.vscode/*
+!.vscode/settings.json.example
+!.vscode/extensions.json
+!.vscode/launch.json.example
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+.history/
+.fleet/
+
+# ------------------------------------------------------------
+# 11. SISTEMA OPERATIVO
+# ------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+.directory
+.Trash-*
+.fuse_hidden*
+.nfs*
+
+# ------------------------------------------------------------
+# 12. EXCEPCIONES: mantener carpetas vacías y ejemplos
+# ------------------------------------------------------------
+!.gitkeep
+!**/.gitkeep
+!*.example
+!*.sample
+!*.template
